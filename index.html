@@ -138,59 +138,10 @@
     }
 
     /* =========================
-       FULLSCREEN BUTTON
-    ========================== */
-
-    .fullscreen-btn{
-
-      position:fixed;
-
-      top:15px;
-      right:15px;
-
-      z-index:9999;
-
-      padding:12px 18px;
-
-      border:none;
-      border-radius:10px;
-
-      background:#6c3cff;
-      color:white;
-
-      font-size:14px;
-      font-weight:bold;
-
-      cursor:pointer;
-
-      box-shadow:0 4px 12px rgba(0,0,0,0.4);
-
-      transition:0.2s ease;
-
-    }
-
-    .fullscreen-btn:hover{
-
-      transform:scale(1.05);
-
-    }
-
-    /* =========================
        MOBILE OPTIMIZATION
     ========================== */
 
     @media (max-width:768px){
-
-      .fullscreen-btn{
-
-        top:10px;
-        right:10px;
-
-        padding:10px 14px;
-
-        font-size:12px;
-
-      }
 
       .spinner{
 
@@ -225,12 +176,6 @@
 
   </div>
 
-  <!-- FULLSCREEN BUTTON -->
-
-  <button class="fullscreen-btn" id="fullscreenBtn">
-    Fullscreen
-  </button>
-
   <!-- APP CONTAINER -->
 
   <div class="app-container">
@@ -244,43 +189,6 @@
   </div>
 
   <script>
-
-    // =========================
-    // FULLSCREEN FUNCTION
-    // =========================
-
-    document
-      .getElementById('fullscreenBtn')
-      .addEventListener('click', async () => {
-
-        const container =
-          document.querySelector('.app-container');
-
-        try {
-
-          if (container.requestFullscreen) {
-
-            await container.requestFullscreen();
-
-          } else if (container.webkitRequestFullscreen) {
-
-            await container.webkitRequestFullscreen();
-
-          } else if (container.msRequestFullscreen) {
-
-            await container.msRequestFullscreen();
-
-          }
-
-        } catch (err) {
-
-          console.error(
-            `Fullscreen error: ${err.message}`
-          );
-
-        }
-
-      });
 
     // =========================
     // LOADING SCREEN
