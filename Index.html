@@ -1,0 +1,329 @@
+```html id="mhxtgw"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <!-- MOBILE RESPONSIVE -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Touchdown Rental Portal</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+
+      width:100%;
+      height:100%;
+      overflow:hidden;
+
+      background:#000;
+
+      font-family:Arial, sans-serif;
+
+    }
+
+    .app-container{
+
+      position:fixed;
+
+      top:0;
+      left:0;
+
+      width:100vw;
+      height:100vh;
+
+      overflow:hidden;
+
+    }
+
+    iframe{
+
+      width:100%;
+      height:100%;
+
+      border:none;
+
+      display:block;
+
+      background:#111;
+
+    }
+
+    /* =========================
+       LOADING SCREEN
+    ========================== */
+
+    .loader-wrapper{
+
+      position:fixed;
+
+      top:0;
+      left:0;
+
+      width:100%;
+      height:100%;
+
+      background:#000;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+
+      z-index:10000;
+
+      transition:opacity 0.4s ease,
+                 visibility 0.4s ease;
+
+    }
+
+    .loader-wrapper.hidden{
+
+      opacity:0;
+      visibility:hidden;
+
+      pointer-events:none;
+
+    }
+
+    .spinner{
+
+      width:70px;
+      height:70px;
+
+      border:6px solid rgba(255,255,255,0.2);
+
+      border-top:6px solid #6c3cff;
+
+      border-radius:50%;
+
+      animation:spin 1s linear infinite;
+
+      margin-bottom:20px;
+
+    }
+
+    .loading-text{
+
+      color:white;
+
+      font-size:18px;
+      font-weight:bold;
+
+      letter-spacing:1px;
+
+    }
+
+    @keyframes spin{
+
+      0%{
+        transform:rotate(0deg);
+      }
+
+      100%{
+        transform:rotate(360deg);
+      }
+
+    }
+
+    /* =========================
+       FULLSCREEN BUTTON
+    ========================== */
+
+    .fullscreen-btn{
+
+      position:fixed;
+
+      top:15px;
+      right:15px;
+
+      z-index:9999;
+
+      padding:12px 18px;
+
+      border:none;
+      border-radius:10px;
+
+      background:#6c3cff;
+      color:white;
+
+      font-size:14px;
+      font-weight:bold;
+
+      cursor:pointer;
+
+      box-shadow:0 4px 12px rgba(0,0,0,0.4);
+
+      transition:0.2s ease;
+
+    }
+
+    .fullscreen-btn:hover{
+
+      transform:scale(1.05);
+
+    }
+
+    /* =========================
+       MOBILE OPTIMIZATION
+    ========================== */
+
+    @media (max-width:768px){
+
+      .fullscreen-btn{
+
+        top:10px;
+        right:10px;
+
+        padding:10px 14px;
+
+        font-size:12px;
+
+      }
+
+      .spinner{
+
+        width:55px;
+        height:55px;
+
+      }
+
+      .loading-text{
+
+        font-size:15px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- LOADING SCREEN -->
+
+  <div class="loader-wrapper" id="loader">
+
+    <div class="spinner"></div>
+
+    <div class="loading-text">
+      Loading Touchdown Car Rental...
+    </div>
+
+  </div>
+
+  <!-- FULLSCREEN BUTTON -->
+
+  <button class="fullscreen-btn" id="fullscreenBtn">
+    Fullscreen
+  </button>
+
+  <!-- APP CONTAINER -->
+
+  <div class="app-container">
+
+    <iframe
+      id="appFrame"
+      src="https://script.google.com/macros/s/AKfycbzMkdoDU0oZiVcs92I55DdAzf3FI2AKDgbl26wmN36IOSD3OV8kvS0n5kWHzeNG3dCU/exec"
+      allowfullscreen>
+    </iframe>
+
+  </div>
+
+  <script>
+
+    // =========================
+    // FULLSCREEN FUNCTION
+    // =========================
+
+    document
+      .getElementById('fullscreenBtn')
+      .addEventListener('click', async () => {
+
+        const container =
+          document.querySelector('.app-container');
+
+        try {
+
+          if (container.requestFullscreen) {
+
+            await container.requestFullscreen();
+
+          } else if (container.webkitRequestFullscreen) {
+
+            await container.webkitRequestFullscreen();
+
+          } else if (container.msRequestFullscreen) {
+
+            await container.msRequestFullscreen();
+
+          }
+
+        } catch (err) {
+
+          console.error(
+            `Fullscreen error: ${err.message}`
+          );
+
+        }
+
+      });
+
+    // =========================
+    // LOADING SCREEN
+    // =========================
+
+    const iframe =
+      document.getElementById('appFrame');
+
+    const loader =
+      document.getElementById('loader');
+
+    iframe.onload = () => {
+
+      setTimeout(() => {
+
+        loader.classList.add('hidden');
+
+      }, 500);
+
+    };
+
+    // =========================
+    // MOBILE HEIGHT FIX
+    // =========================
+
+    function setViewportHeight(){
+
+      document.documentElement.style.setProperty(
+        '--vh',
+        `${window.innerHeight * 0.01}px`
+      );
+
+    }
+
+    setViewportHeight();
+
+    window.addEventListener(
+      'resize',
+      setViewportHeight
+    );
+
+  </script>
+
+</body>
+</html>
+```
